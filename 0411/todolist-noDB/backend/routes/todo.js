@@ -4,12 +4,14 @@ let todoData = require("../todoData.json");
 
 const router = express.Router();
 
+//전체 투두리스트 조회
 router.get("/", (req, res) => {
     console.log(todoData);
 
     res.json(todoData[0].title);
 });
 
+//특정 투두리스트 조회
 router.get("/:id", (req, res) => {
     const { id } = req.params;
     if (parseInt(id) >= todoData.length) {
@@ -19,6 +21,7 @@ router.get("/:id", (req, res) => {
     res.json(todoData[parseInt(id)]);
 });
 
+//투두 생성
 router.post("/", (req, res) => {
     const { title, desc } = req.body;
 
@@ -27,6 +30,7 @@ router.post("/", (req, res) => {
     res.json(todoData);
 });
 
+//특정 투두리스트 업데이트
 router.put("/:id", (req, res) => {
     const { id } = req.params;
     const { title, desc } = req.body;
@@ -48,6 +52,7 @@ router.put("/:id", (req, res) => {
     res.json(todoData);
 });
 
+//특정 투두리스트 업데이트 완료
 router.put("/done/:id", (req, res) => {
     const { id } = req.params; // id값
 
@@ -65,6 +70,7 @@ router.put("/done/:id", (req, res) => {
     res.json(todoData);
 });
 
+//특정 투두리스트 삭제
 router.delete("/:id", (req, res) => {
     const { id } = req.params;
 
