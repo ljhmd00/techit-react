@@ -67,4 +67,35 @@ router.get("/:account/", async (req, res) => {
     }
 });
 
+//user 삭제 - delete
+router.delete("/:account", async (req, res) => {
+    try {
+        const { account } = req.params;
+        const user = await client.user.findUnique({
+            where: {
+                account,
+            },
+        });
+        if (!user) {
+            return res.status(400).json({
+                ok: false,
+                error: "Not exist user.",
+            });
+        }
+
+        await client.user.delete({
+            where: {
+                account,
+            },
+        });
+
+        res.json({
+            ok: true,
+            message: "User deleted successfully.",
+        });
+    } catch (error) {
+        console.error(error);
+    }
+});
+
 module.exports = router;
