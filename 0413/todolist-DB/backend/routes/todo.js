@@ -49,12 +49,14 @@ router.post("/", async (req, res) => {
 router.get("/:userId", async (req, res) => {
     try {
         const { userId } = req.params;
+        const { skip } = req.query;
 
         // todo 조회 전, user 있는지 체크
         const user = await client.user.findMany({
             where: {
                 id: parseInt(userId),
             },
+
             // 0번부터 3개 출력 (findMany로 조회할 때는 값이 많을 수도 있기 때문에)
             // 실제 동작할 때는 skip이 take만큼 더해져야 함 (0 -> 3 -> 6 ...)
             //   skip: 0,
@@ -72,6 +74,11 @@ router.get("/:userId", async (req, res) => {
             where: {
                 userId: parseInt(userId),
             },
+            orderBy: {
+                createdAt: "desc",
+            },
+            skip: parseInt(skip),
+            take: 3,
         });
 
         // console.log(todos);
