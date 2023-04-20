@@ -1,0 +1,15 @@
+{
+    "name": "Kong2",
+    "description": "This is Kong2",
+    "image": "https://gateway.pinata.cloud/ipfs/QmYEC6SfEMkrofNub29THfq2T8KJHJAy1dmh8ro7mgJugR",
+    "attributes": [
+        {
+            "trait_type": "Type",
+            "value": "Kong2"
+        },
+        {
+            "trait_type": "animal",
+            "value": "Maltese"
+        }
+    ]
+}

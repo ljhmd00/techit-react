@@ -1,0 +1,15 @@
+{
+    "name": "bubbleMan",
+    "description": "This is bubbleMan",
+    "image": "https://gateway.pinata.cloud/ipfs/QmVHqqgkv5Rak8tpbAHWBt58CJH3tP3YHMnxf9dAUeqSvj",
+    "attributes": [
+        {
+            "trait_type": "Type",
+            "value": "bubble"
+        },
+        {
+            "trait_type": "color",
+            "value": "#000000"
+        }
+    ]
+}

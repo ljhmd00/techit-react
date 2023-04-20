@@ -1,0 +1,15 @@
+{
+    "name": "SquareA",
+    "description": "This is SquareA",
+    "image": "https://gateway.pinata.cloud/ipfs/Qmau1Gdf7Fb8VkyQqKSihJtUbeX41BsS758QUokVt2y8Ct",
+    "attributes": [
+        {
+            "trait_type": "Type",
+            "value": "SquareA"
+        },
+        {
+            "trait_type": "Num",
+            "value": "A"
+        }
+    ]
+}
