@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import Web3 from "web3";
 import { CONTRACT_ABI, CONTRACT_ADDRESS, NFT_ABI, NFT_ADDRESS } from "./web3.config";
 
-const web3 = new Web3("https://rpc-mumbai.maticvigil.com");
+// const web3 = new Web3("https://rpc-mumbai.maticvigil.com");
+const web3 = new Web3(window.ethereum);
 const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
 const nftContract = new web3.eth.Contract(NFT_ABI, NFT_ADDRESS);
 
