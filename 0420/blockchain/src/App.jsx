@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Web3 from "web3";
 import { CONTRACT_ABI, CONTRACT_ADDRESS, NFT_ABI, NFT_ADDRESS } from "./web3.config";
+import axios from "axios";
 
 // const web3 = new Web3("https://rpc-mumbai.maticvigil.com");
 const web3 = new Web3(window.ethereum);
@@ -10,6 +11,7 @@ const nftContract = new web3.eth.Contract(NFT_ABI, NFT_ADDRESS);
 function App() {
     const [account, setAccount] = useState("");
     const [myBalance, setMyBalance] = useState();
+    const [nftMetaData, setNftMetaData] = useState();
 
     const onClickAccount = async () => {
         try {
@@ -41,15 +43,27 @@ function App() {
 
     const onClickMint = async () => {
         try {
-            const result = await nftContract.methods
-                .mintNft(
-                    "https://gateway.pinata.cloud/ipfs/Qmdjid5X25YeqTWLJ6UEdTpsEAJSx8NzZF2eDmEFehkTtx"
-                )
-                .send({
-                    from: account,
-                });
+            if (!account) return;
 
-            console.log(result);
+            const uri =
+                "https://gateway.pinata.cloud/ipfs/Qmdjid5X25YeqTWLJ6UEdTpsEAJSx8NzZF2eDmEFehkTtx";
+
+            const result = await nftContract.methods.mintNft(uri).send({
+                from: account,
+            });
+
+            if (!result.status) return;
+
+            // const balanceOf = await nftContract.methods.balanceOf(account).call();
+
+            // const tokenOfOwnerByIndex = await nftContract.methods
+            //     .tokenOfOwnerByIndex(account, parseInt(balanceOf) - 1)
+            //     .call();
+
+            // const tokenURI = await nftContract.methods.tokenURI(tokenOfOwnerByIndex).call();
+
+            const response = await axios.get(uri);
+            setNftMetaData(response.data);
         } catch (error) {
             console.log(error);
         }
@@ -77,6 +91,21 @@ function App() {
                         </button>
                     </div>
                     <div className="flex items-center mt-4">
+                        {nftMetaData && (
+                            <div className="text-center">
+                                <img src={nftMetaData.image} alt="NFT_IMG" />
+                                <div>Name: {nftMetaData.name}</div>
+                                <div>Description: {nftMetaData.description}</div>
+                                {nftMetaData.attributes.map((v, i) => {
+                                    return (
+                                        <div key={i}>
+                                            <span>{v.trait_type} : </span>
+                                            <span>{v.value}</span>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        )}
                         <button className="ml-2 btn-style" onClick={onClickMint}>
                             민팅
                         </button>
