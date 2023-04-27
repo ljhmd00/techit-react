@@ -16,7 +16,9 @@ const Header = ({ account, setAccount }) => {
             <div className="ml-1 text-xl">Ble-Chess</div>
             <div className="flex items-center">
                 {account ? (
-                    account
+                    <div>
+                        {account.slice(0, 4)}...{account.slice(-4)}
+                    </div>
                 ) : (
                     <button
                         className="p-2 bg-gray-800 rounded-full ml-1 text-white"
